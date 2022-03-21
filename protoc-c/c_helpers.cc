@@ -68,6 +68,8 @@
 
 #include <protoc-c/c_helpers.h>
 #include <google/protobuf/stubs/common.h>
+#include <iostream>
+#include <fstream>
 
 namespace google {
 namespace protobuf {
@@ -133,7 +135,7 @@ std::string CamelToLower(const std::string &name) {
     bool is_upper = isupper(name[i]);
     if (is_upper) {
       if (!was_upper)
-	rv += '_';
+	      rv += '_';
       rv += tolower(name[i]);
     } else {
       rv += name[i];
@@ -295,7 +297,7 @@ std::set<std::string> MakeKeywordsMap() {
 std::set<std::string> kKeywords = MakeKeywordsMap();
 
 std::string FieldName(const FieldDescriptor* field) {
-  std::string result = ToLower(field->name());
+  std::string result = field->name();
   if (kKeywords.count(result) > 0) {
     result.append("_");
   }
