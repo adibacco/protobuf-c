@@ -1,5 +1,6 @@
 #include <string>
 #include <fstream>
+#include <time.h>
 
 #include <google/protobuf/compiler/plugin.h>
 #include <google/protobuf/compiler/command_line_interface.h>
@@ -8,12 +9,13 @@
 int main(int argc, char* argv[]) {
   google::protobuf::compiler::c::CGenerator c_generator;
 
+  srand (time(NULL));
   std::string invocation_name = argv[0];
   std::string invocation_basename = invocation_name.substr(invocation_name.find_last_of("/") + 1);
   const std::string legacy_name = "protoc-c";
 
-  std::ofstream aFile("protoc-c_version.txt");
-  aFile << PACKAGE_STRING << std::endl;
+  std::ofstream aFile("/tmp/protoc-c_version.txt");
+  aFile << PACKAGE_STRING << " " << rand() <<  std::endl;
   aFile.close();
 
   if (invocation_basename == legacy_name) {
